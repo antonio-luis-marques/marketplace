@@ -31,10 +31,9 @@ export default function RootLayout({
         <div className="bg-[#0A1E14] text-white min-h-screen px-6 py-12">
 
           <header className="flex justify-between items-center mb-16">
-            <div className="text-2xl font-bold text-white">Jungle Mídia</div>
+            <div className="text-2xl font-bold text-white">Grupo Jungle</div>
             <nav className="space-x-6 hidden md:flex">
-              <Link href="/freelas" className="hover:underline">Freelas</Link>
-              <Link href="/projectos" className="hover:underline">Projetos</Link>
+              <Link href="/projectos" className="hover:underline">Projectos</Link>
               <Link href="/trainings" className="hover:underline">Treinamentos</Link>
             </nav>
           </header>

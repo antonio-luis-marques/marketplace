@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Button, Tab, Tabs, TextField } from "@mui/material";
-import { ArrowRight, Briefcase, UserPlus } from 'lucide-react';
+import { Button, MenuItem, Select, SelectChangeEvent, Tab, Tabs, TextField } from "@mui/material";
+import { LayoutGrid, Wrench, MonitorSmartphone, Globe, GraduationCap, Settings, ArrowRight, Briefcase, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 
 export default function MarketplacePage() {
@@ -11,80 +11,71 @@ export default function MarketplacePage() {
     company: '',
     email: '',
     projectDescription: '',
+    service: '', // Adicionando campo para selecionar o serviço
+    talentProfile: '', // Adicionando campo para selecionar o perfil de talento
   });
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e: SelectChangeEvent<string>) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = () => {
     // Aqui você pode enviar os dados para backend ou API
     alert('Solicitação enviada com sucesso!');
-    setForm({ company: '', email: '', projectDescription: '' });
+    setForm({ company: '', email: '', projectDescription: '', service: '', talentProfile: '' });
   };
   return (
     <>
-      {/* Header */}
-      
 
       {/* Hero Section */}
       <section className="text-center max-w-3xl mx-auto mb-24">
-        <h1 className="text-4xl font-bold mb-4">Transforme sua ideia em um projeto digital</h1>
-        <p className="text-lg mb-8 text-gray-300">
-          Soluções criadas por talentos que formamos com excelência. Peça sistemas, apps, websites ou treinamentos.
-        </p>
+        <h1 className="text-4xl font-bold mb-4">Serviços de Software e Treinamentos</h1>
+        <p className="text-lg mb-8 text-gray-300">Soluções criadas por talentos que formamos com excelência. Peça sistemas, apps, websites ou treinamentos.</p>
         <Link href="#formulario">
-          <Button variant="outlined" color="success" endIcon={<ArrowRight size={16} />}>
-            Solicitar Projeto
-          </Button>
+          <Button variant="outlined" color="success" endIcon={<ArrowRight size={16} />}>Solicitar Servico</Button>
         </Link>
       </section>
 
-      {/* Freelancers */}
-      <section id="freelas" className="mb-24">
-        <h2 className="text-2xl font-semibold mb-10 text-center">Freelancers Disponíveis</h2>
+      {/* Serviços */}
+      <section id="services" className="mb-24">
+        <h2 className="text-2xl font-semibold mb-10 text-center">Serviços Disponíveis</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {[{
-            name: "João Silva",
-            title: "Desenvolvedor Front-End",
-            skills: "React, Tailwind, Firebase",
-            image: "https://randomuser.me/api/portraits/men/32.jpg",
-            bio: "Especialista em interfaces modernas e responsivas com foco em performance e acessibilidade."
+            icon: <Wrench size={28} />, title: 'Sistemas Web', desc: 'Soluções robustas e escaláveis para sua empresa.'
           }, {
-            name: "Ana Costa",
-            title: "UI/UX Designer",
-            skills: "Figma, Adobe XD, Prototipagem",
-            image: "https://randomuser.me/api/portraits/women/44.jpg",
-            bio: "Designer apaixonada por criar experiências que encantam e funcionam de verdade."
+            icon: <MonitorSmartphone size={28} />, title: 'Aplicativos Mobile', desc: 'Apps Android e iOS com performance e design.'
           }, {
-            name: "Carlos Mendes",
-            title: "Desenvolvedor Full Stack",
-            skills: "Node.js, Next.js, PostgreSQL",
-            image: "https://randomuser.me/api/portraits/men/75.jpg",
-            bio: "Cria sistemas robustos com backend escalável e frontend intuitivo."
-          }].map((freela, index) => (
-            <div key={index} className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-              <img src={freela.image} alt={freela.name} className="w-20 h-20 rounded-full mx-auto mb-4" />
-              <h3 className="text-lg font-semibold">{freela.name}</h3>
-              <p className="text-sm text-gray-400 mb-1">{freela.title}</p>
-              <p className="text-sm text-gray-300 mb-2">{freela.skills}</p>
-              <p className="text-sm text-gray-400 italic mb-4">{freela.bio}</p>
-              <Link href="#formulario">
-                <Button variant="outlined" color="success" size="small">Solicitar esse freelancer</Button>
-              </Link>
+            icon: <Globe size={28} />, title: 'Sites e Lojas', desc: 'Presença digital com foco em conversão.'
+          }, {
+            icon: <GraduationCap size={28} />, title: 'Treinamentos', desc: 'Cursos e workshops personalizados para equipes.'
+          }, {
+            icon: <Settings size={28} />, title: 'Consultorias', desc: 'Análise e orientação técnica especializada.'
+          }].map(({ icon, title, desc }, idx) => (
+            <div key={idx} className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
+              <div className="text-green-400 mb-4 mx-auto w-12 h-12 flex items-center justify-center bg-white/10 rounded-full">
+                {icon}
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{title}</h3>
+              <p className="text-gray-400 text-sm">{desc}</p>
             </div>
           ))}
         </div>
-        <div className="text-center mt-6">
-          <Link href="/freelas">
-            <Button variant="text" color="success">Ver mais freelancers</Button>
-          </Link>
-        </div>
       </section>
 
-      {/* Projetos */}
+      {/* Como funciona */}
+      {/* <section id="como-funciona" className="mb-24">
+        <h2 className="text-2xl font-semibold mb-10 text-center">Como Funciona</h2>
+        <ol className="list-decimal list-inside space-y-4 text-gray-300 max-w-2xl mx-auto">
+          <li>Você descreve o serviço que precisa.</li>
+          <li>Nós selecionamos formandos capacitados.</li>
+          <li>Supervisionamos a execução do projeto.</li>
+          <li>Você recebe a solução pronta com suporte.</li>
+        </ol>
+      </section> */}
+
       <section id="projetos" className="mb-24">
-        <h2 className="text-2xl font-semibold mb-10 text-center">Projetos Realizados</h2>
+        <h2 className="text-2xl font-semibold mb-10 text-center">Projectos Realizados</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {[1, 2, 3].map((id) => (
             <div key={id} className="bg-white/5 border border-white/10 rounded-2xl p-6">
@@ -119,14 +110,12 @@ export default function MarketplacePage() {
             <Button variant="text" color="success">Ver mais treinamentos</Button>
           </Link>
         </div>
-
       </section>
 
-      {/* Formulário de Requisição */}
       <section id="formulario" className="mb-24">
         <div className="bg-white text-black rounded-xl shadow-lg p-6 max-w-4xl mx-auto">
           <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)} indicatorColor="primary" textColor="primary">
-            <Tab icon={<Briefcase />} label="Solicitar Freelancer" />
+            <Tab icon={<Briefcase />} label="Solicitar Servico" />
             <Tab icon={<UserPlus />} label="Contratar Talento" />
           </Tabs>
 
@@ -135,7 +124,7 @@ export default function MarketplacePage() {
               label="Nome da Empresa"
               name="company"
               value={form.company}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e as React.ChangeEvent<HTMLInputElement>)}
               fullWidth
               margin="normal"
             />
@@ -143,7 +132,7 @@ export default function MarketplacePage() {
               label="Email para Contato"
               name="email"
               value={form.email}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e as React.ChangeEvent<HTMLInputElement>)}
               fullWidth
               margin="normal"
               type="email"
@@ -152,21 +141,72 @@ export default function MarketplacePage() {
               label="Descrição do Projeto ou Perfil Desejado"
               name="projectDescription"
               value={form.projectDescription}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e as React.ChangeEvent<HTMLInputElement>)}
               fullWidth
               margin="normal"
               multiline
               rows={4}
             />
+
+            {/* Adicionando Select para escolher o serviço ou perfil de talento */}
+            {tab === 0 ? (
+              <Select
+                name="service"
+                value={form.service}
+                onChange={handleChange}
+                fullWidth
+                // margin="normal"
+                displayEmpty
+              >
+                <MenuItem value="" disabled>Escolha o serviço</MenuItem>
+                <MenuItem value="web">Sistemas Web</MenuItem>
+                <MenuItem value="mobile">Aplicativos Mobile</MenuItem>
+                <MenuItem value="site">Sites e Lojas</MenuItem>
+                <MenuItem value="training">Treinamentos</MenuItem>
+                <MenuItem value="consultancy">Consultorias</MenuItem>
+              </Select>
+            ) : (
+              <Select
+                name="talentProfile"
+                value={form.talentProfile}
+                onChange={handleChange}
+                fullWidth
+                // margin="normal"
+                displayEmpty
+              >
+                <MenuItem value="" disabled>Escolha o perfil do talento</MenuItem>
+                <MenuItem value="frontend">Front-End</MenuItem>
+                <MenuItem value="fullstack-java">Full Stack (Java)</MenuItem>
+                <MenuItem value="backend">Back-End</MenuItem>
+                <MenuItem value="fullstack-node">Full Stack (Node.js)</MenuItem>
+                <MenuItem value="designer">Designer</MenuItem>
+                <MenuItem value="qa">QA (Quality Assurance)</MenuItem>
+                <MenuItem value="devops">DevOps</MenuItem>
+                <MenuItem value="mobile">Mobile Developer</MenuItem>
+              </Select>
+            )}
+
             <div className="mt-4 text-right">
               <Button variant="contained" color="success" onClick={handleSubmit}>Enviar Solicitação</Button>
             </div>
           </div>
         </div>
       </section>
+      {/* Formulário simples de requisição */}
+      {/* <section id="formulario" className="mb-24">
+        <h2 className="text-2xl font-semibold mb-6 text-center">Solicite seu Projeto</h2>
+        <form className="max-w-xl mx-auto space-y-4">
+          <input placeholder="Nome" className="w-full p-3 rounded bg-white/10 text-white placeholder:text-gray-400" />
+          <input placeholder="Email para contato" className="w-full p-3 rounded bg-white/10 text-white placeholder:text-gray-400" />
+          <textarea placeholder="Descreva o projeto que você precisa" rows={4} className="w-full p-3 rounded bg-white/10 text-white placeholder:text-gray-400" />
+          <Button type="submit" variant="contained" color="success" className="w-full">Enviar Solicitação</Button>
+        </form>
+      </section> */}
 
       {/* Rodapé */}
-      
+      {/* <footer id="contato" className="text-center text-sm text-gray-500 border-t border-white/10 pt-8">
+        <p>© {new Date().getFullYear()} Jungle Mídia. Todos os direitos reservados.</p>
+      </footer> */}
     </>
   );
 }
