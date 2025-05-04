@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Button, MenuItem, Select, SelectChangeEvent, Tab, Tabs, TextField } from "@mui/material";
-import { LayoutGrid, Wrench, MonitorSmartphone, Globe, GraduationCap, Settings, ArrowRight, Briefcase, UserPlus } from 'lucide-react';
+import { Wrench, MonitorSmartphone, Globe, GraduationCap, Settings, ArrowRight, Briefcase, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 
 export default function MarketplacePage() {
