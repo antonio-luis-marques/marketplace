@@ -1,103 +1,172 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import React, { useState } from 'react';
+import { Button, Tab, Tabs, TextField } from "@mui/material";
+import { ArrowRight, Briefcase, UserPlus } from 'lucide-react';
+import Link from 'next/link';
+
+export default function MarketplacePage() {
+  const [tab, setTab] = useState(0);
+  const [form, setForm] = useState({
+    company: '',
+    email: '',
+    projectDescription: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<any>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    // Aqui você pode enviar os dados para backend ou API
+    alert('Solicitação enviada com sucesso!');
+    setForm({ company: '', email: '', projectDescription: '' });
+  };
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* Header */}
+      
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Section */}
+      <section className="text-center max-w-3xl mx-auto mb-24">
+        <h1 className="text-4xl font-bold mb-4">Transforme sua ideia em um projeto digital</h1>
+        <p className="text-lg mb-8 text-gray-300">
+          Soluções criadas por talentos que formamos com excelência. Peça sistemas, apps, websites ou treinamentos.
+        </p>
+        <Link href="#formulario">
+          <Button variant="outlined" color="success" endIcon={<ArrowRight size={16} />}>
+            Solicitar Projeto
+          </Button>
+        </Link>
+      </section>
+
+      {/* Freelancers */}
+      <section id="freelas" className="mb-24">
+        <h2 className="text-2xl font-semibold mb-10 text-center">Freelancers Disponíveis</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[{
+            name: "João Silva",
+            title: "Desenvolvedor Front-End",
+            skills: "React, Tailwind, Firebase",
+            image: "https://randomuser.me/api/portraits/men/32.jpg",
+            bio: "Especialista em interfaces modernas e responsivas com foco em performance e acessibilidade."
+          }, {
+            name: "Ana Costa",
+            title: "UI/UX Designer",
+            skills: "Figma, Adobe XD, Prototipagem",
+            image: "https://randomuser.me/api/portraits/women/44.jpg",
+            bio: "Designer apaixonada por criar experiências que encantam e funcionam de verdade."
+          }, {
+            name: "Carlos Mendes",
+            title: "Desenvolvedor Full Stack",
+            skills: "Node.js, Next.js, PostgreSQL",
+            image: "https://randomuser.me/api/portraits/men/75.jpg",
+            bio: "Cria sistemas robustos com backend escalável e frontend intuitivo."
+          }].map((freela, index) => (
+            <div key={index} className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
+              <img src={freela.image} alt={freela.name} className="w-20 h-20 rounded-full mx-auto mb-4" />
+              <h3 className="text-lg font-semibold">{freela.name}</h3>
+              <p className="text-sm text-gray-400 mb-1">{freela.title}</p>
+              <p className="text-sm text-gray-300 mb-2">{freela.skills}</p>
+              <p className="text-sm text-gray-400 italic mb-4">{freela.bio}</p>
+              <Link href="#formulario">
+                <Button variant="outlined" color="success" size="small">Solicitar esse freelancer</Button>
+              </Link>
+            </div>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div className="text-center mt-6">
+          <Link href="/freelas">
+            <Button variant="text" color="success">Ver mais freelancers</Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Projetos */}
+      <section id="projetos" className="mb-24">
+        <h2 className="text-2xl font-semibold mb-10 text-center">Projetos Realizados</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[1, 2, 3].map((id) => (
+            <div key={id} className="bg-white/5 border border-white/10 rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-1">Sistema de Gestão Escolar</h3>
+              <p className="text-gray-400 text-sm mb-2">Feito por: Equipe Jungle + Freelas</p>
+              <p className="text-sm text-gray-300">Cliente: Escola Futuro Brilhante</p>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-6">
+          <Link href="/projects">
+            <Button variant="text" color="success">Ver mais projetos</Button>
+          </Link>
+        </div>
+
+      </section>
+
+      {/* Treinamentos */}
+      <section id="treinamentos" className="mb-24">
+        <h2 className="text-2xl font-semibold mb-10 text-center">Treinamentos Ministrados</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[1, 2, 3].map((id) => (
+            <div key={id} className="bg-white/5 border border-white/10 rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-1">Curso de Lógica de Programação</h3>
+              <p className="text-gray-400 text-sm mb-2">Instrutor: Ana Costa</p>
+              <p className="text-sm text-gray-300">Instituição: Instituto Jovem Código</p>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-6">
+          <Link href="/trainings">
+            <Button variant="text" color="success">Ver mais treinamentos</Button>
+          </Link>
+        </div>
+
+      </section>
+
+      {/* Formulário de Requisição */}
+      <section id="formulario" className="mb-24">
+        <div className="bg-white text-black rounded-xl shadow-lg p-6 max-w-4xl mx-auto">
+          <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)} indicatorColor="primary" textColor="primary">
+            <Tab icon={<Briefcase />} label="Solicitar Freelancer" />
+            <Tab icon={<UserPlus />} label="Contratar Talento" />
+          </Tabs>
+
+          <div className="mt-6">
+            <TextField
+              label="Nome da Empresa"
+              name="company"
+              value={form.company}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Email para Contato"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              type="email"
+            />
+            <TextField
+              label="Descrição do Projeto ou Perfil Desejado"
+              name="projectDescription"
+              value={form.projectDescription}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              multiline
+              rows={4}
+            />
+            <div className="mt-4 text-right">
+              <Button variant="contained" color="success" onClick={handleSubmit}>Enviar Solicitação</Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Rodapé */}
+      
+    </>
   );
 }

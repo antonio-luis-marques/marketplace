@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="bg-[#0A1E14] text-white min-h-screen px-6 py-12">
+
+          <header className="flex justify-between items-center mb-16">
+            <div className="text-2xl font-bold text-white">Jungle Mídia</div>
+            <nav className="space-x-6 hidden md:flex">
+              <Link href="/freelas" className="hover:underline">Freelas</Link>
+              <Link href="/projectos" className="hover:underline">Projetos</Link>
+              <Link href="/trainings" className="hover:underline">Treinamentos</Link>
+            </nav>
+          </header>
+          {children}
+          <footer id="contato" className="text-center text-sm text-gray-500 border-t border-white/10 pt-8">
+            <p>© {new Date().getFullYear()} Jungle Mídia. Todos os direitos reservados.</p>
+          </footer>
+        </div>
       </body>
     </html>
   );
